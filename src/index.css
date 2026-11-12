@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #16140f;
+  --color-ink-soft: #2a261f;
+  --color-paper: #f3efe6;
+  --color-paper-2: #e6e0d2;
+  --color-line: #d9d1c0;
+  --color-brass: #7a4e22;
+  --color-brass-bright: #e0b07a;
+  --color-pine: #0f6a40;
+  --color-pine-bright: #8fd6b0;
+  --color-pine-soft: #e5f4ec;
+  --color-coral: #9d332c;
+  --color-coral-bright: #f3b2ac;
+  --color-coral-soft: #f8e8e6;
+  --color-mist: #5c564c;
+  --font-sans: "Outfit", "Segoe UI", sans-serif;
+  --font-display: "Fraunces", "Palatino Linotype", Palatino, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #e7d3b0;
+  color: #16140f;
+}
+
+.rise {
+  animation: rise 0.45s ease both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.tape:hover .marquee-track,
+.tape:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+.chart-reveal {
+  clip-path: inset(0 100% 0 0);
+  animation: chart-reveal 0.9s ease forwards;
+}
+
+@keyframes chart-reveal {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.live-dot {
+  position: relative;
+  display: inline-flex;
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+.live-dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #8fd6b0;
+  animation: ping-soft 1.8s ease-out infinite;
+}
+
+.live-dot::after {
+  content: "";
+  position: relative;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 999px;
+  background: #8fd6b0;
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+.flash-up {
+  animation: flash-up 0.7s ease;
+}
+
+.flash-down {
+  animation: flash-down 0.7s ease;
+}
+
+@keyframes flash-up {
+  0% {
+    background-color: rgba(15, 106, 64, 0.28);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes flash-down {
+  0% {
+    background-color: rgba(157, 51, 44, 0.28);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rise,
+  .marquee-track,
+  .chart-reveal,
+  .pulse-dot,
+  .flash-up,
+  .flash-down,
+  .live-dot::before {
+    animation: none !important;
+  }
+
+  .marquee-track {
+    width: 100% !important;
+    flex-wrap: wrap;
+  }
+
+  .marquee-copy-dup {
+    display: none;
+  }
+}
